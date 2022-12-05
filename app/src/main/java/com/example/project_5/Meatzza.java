@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Meatzza Class that extends Pizza to create a specialized pizza
  *
- * @author Srinidhi Ayalasomayajula, Palak Mehta
+ *
  */
 public class Meatzza extends Pizza {
     private double price = 0.0;
@@ -16,23 +16,22 @@ public class Meatzza extends Pizza {
     private static final double largePrice = 19.99;
 
     /**
-     * Constructor for the Meatzza Pizza that sets the default values for the toppings, and crust
+     * Constructor for the Meatzza Pizza that sets the toppings and crust
      *
-     * @param crust Crust for the Meatzza pizza based on the style of the pizza
+     * @param crust Crust for the Meatzza pizza based on the type of pizza
      */
     public Meatzza(Crust crust) {
-        List<Topping> toppingsMeatzza = new ArrayList<Topping>();
-        toppingsMeatzza.add(Topping.SAUSAGE);
-        toppingsMeatzza.add(Topping.PEPPERONI);
-        toppingsMeatzza.add(Topping.HAM);
-        toppingsMeatzza.add(Topping.BEEF);
-        setToppings(toppingsMeatzza);
         setCrust(crust);
+        List<Topping> toppings = new ArrayList<Topping>();
+        toppings.add(Topping.SAUSAGE);
+        toppings.add(Topping.PEPPERONI);
+        toppings.add(Topping.HAM);
+        toppings.add(Topping.BEEF);
+        setToppings(toppings);
     }
 
     /**
-     * evaluates the new price of the pizza based on the price
-     *
+     * returns price of the pizza depending on size
      * @return the price of the pizza based on the size the user inputted
      */
     @Override

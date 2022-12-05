@@ -3,12 +3,10 @@ package com.example.project_5;
 import java.io.Serializable;
 
 /**
- * This class defines the data structure of an item to be displayed in the RecyclerView
- * @author Lily Chang
+ * This class defines the structure of an item displayed in the RecyclerView
  */
 public class Item implements Serializable {
     private String pizzaString;
-    //private int image;
 
     /**
      * Parameterized constructor.
@@ -27,14 +25,5 @@ public class Item implements Serializable {
         return pizzaString;
     }
 
-    /**
-     * Getter method that returns the image of an item.
-     * @return the image of an item.
-     */
-    //public int getImage() {return image;}
 
-    /**
-     * Getter method that returns the unit price.
-     * @return the unit price of the item.
-     */
 }

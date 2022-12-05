@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Deluxe Class that extends Pizza to create a specialized pizza
- * @author Srinidhi Ayalasomayajula, Palak Mehta
+ * Deluxe Class that extends Pizza
+ *
  */
 public class Deluxe extends Pizza {
     private double price = 0.0;
@@ -15,22 +15,22 @@ public class Deluxe extends Pizza {
     private static final double largePrice = 18.99;
 
     /**
-     * Constructor for the Deluxe Pizza that sets the default values for the toppings, and crust
-     * @param crust Crust for the Deluxe pizza based on the style of the pizza
+     * Constructor for the Deluxe Pizza that sets toppings and crust
+     * @param crust Crust based on the type of pizza
      */
     public Deluxe(Crust crust) {
-        List<Topping> toppingsDeluxe = new ArrayList<Topping>();
-        toppingsDeluxe.add(Topping.SAUSAGE);
-        toppingsDeluxe.add(Topping.PEPPERONI);
-        toppingsDeluxe.add(Topping.GREENPEPPER);
-        toppingsDeluxe.add(Topping.ONION);
-        toppingsDeluxe.add(Topping.MUSHROOM);
-        setToppings(toppingsDeluxe);
+        List<Topping> toppings = new ArrayList<Topping>();
+        toppings.add(Topping.SAUSAGE);
+        toppings.add(Topping.PEPPERONI);
+        toppings.add(Topping.GREENPEPPER);
+        toppings.add(Topping.ONION);
+        toppings.add(Topping.MUSHROOM);
+        setToppings(toppings);
         setCrust(crust);
     }
 
     /**
-     * evaluates the new price of the pizza based on the price
+     * returns price of the pizza depending on size
      * @return the price of the pizza based on the size the user inputted
      */
     @Override

@@ -4,10 +4,9 @@ package com.example.project_5;
 import java.util.ArrayList;
 
 /**
- * This class defines an abstract data type StoreOrder that represents a
- * store's database of all orders. It can add and remove orders and export the orders to a txt file.
+ * This class defines the type StoreOrder representing all the store's orders
+ *  Includes methods to add/remove orders, as well as getters/setters to edit the store orders
  *
- * @author Srinidhi Ayalasomayajula, Palak Mehta
  */
 public class StoreOrder implements Customizable {
 
@@ -22,7 +21,7 @@ public class StoreOrder implements Customizable {
     }
 
     /**
-     * Returns an array list of orders.
+     * Returns an array list containing the store's orders
      *
      * @return array list of orders.
      */

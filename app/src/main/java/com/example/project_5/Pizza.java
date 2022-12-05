@@ -4,11 +4,9 @@ package com.example.project_5;
 import java.util.List;
 
 /**
- * Pizza class is an abstract class that implements the Customizable
- * interface houses getters and setters for its instance variables, an abstract
- * price method to be implemented by each type of pizza class, and the add and remove toppings methods.
+ * Pizza is an abstract class that implements the Customizable
+ * interface along with the abstract price method and getters/setters for instance variables
  *
- * @author Srinidhi Ayalasomayajula, Palak Mehta
  */
 public abstract class Pizza implements Customizable {
     private List<Topping> toppings;
@@ -16,63 +14,63 @@ public abstract class Pizza implements Customizable {
     private Size size;
 
     /**
-     * Mutator method for the list of toppings
+     * setter method for the toppings
      *
-     * @param toppings toppings list to be set
+     * @param toppings toppings list
      */
     public void setToppings(List<Topping> toppings) {
         this.toppings = toppings;
     }
 
     /**
-     * Accessor method to get the list of toppings
+     * getter method to get the list of toppings
      *
-     * @return list of toppings
+     * @return toppings list
      */
     public List<Topping> getToppings() {
         return toppings;
     }
 
     /**
-     * Mutator method for the type of crust
+     * setter method for the type of crust
      *
-     * @param crust crust type to be set
+     * @param crust crust type
      */
     public void setCrust(Crust crust) {
         this.crust = crust;
     }
 
     /**
-     * Accessor method to get the type of the crust
+     * getter method to get the type of the crust
      *
-     * @return crust of the pizza
+     * @return crust type
      */
     public Crust getCrust() {
         return crust;
     }
 
     /**
-     * Mutator method for the size of the pizza
+     * setter method for the size
      *
-     * @param size size selected by the user to be set
+     * @param size size enum
      */
     public void setSize(Size size) {
         this.size = size;
     }
 
     /**
-     * Accessor method to get the size of the pizza
+     * getter method to get the size of the pizza
      *
-     * @return size of the pizza
+     * @return size enum
      */
     public Size getSize() {
         return size;
     }
 
     /**
-     * Abstract price method that is implemented by each subclass
+     * Abstract price method implemented by each subclass
      *
-     * @return the price of the pizza
+     * @return pizza price
      */
     public abstract double price();
 
@@ -80,7 +78,7 @@ public abstract class Pizza implements Customizable {
      * Add topping to the list of topping
      *
      * @param obj object to be added
-     * @return true if toppings added
+     * @return true if toppings added, false otherwise
      */
     @Override
     public boolean add(Object obj) {
@@ -91,7 +89,7 @@ public abstract class Pizza implements Customizable {
      * Remove topping from the list of topping
      *
      * @param obj object to be removed
-     * @return true if toppings removed
+     * @return true if toppings removed, false otherwise
      */
     @Override
     public boolean remove(Object obj) {

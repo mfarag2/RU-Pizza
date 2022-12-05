@@ -67,8 +67,8 @@ public class NYStyleActivity extends AppCompatActivity {
         initializeValues();
         addTopping();
         removeTopping();
-        changeSize();
-        changeValues();
+        sizeChangeListener();
+        typeChangeListener();
         addToOrder();
     }
 
@@ -78,21 +78,19 @@ public class NYStyleActivity extends AppCompatActivity {
 
         price = (TextView) (findViewById(R.id.price2NY));
         crust = (TextView) (findViewById(R.id.crust2NY));
-
-        small = (RadioButton) (findViewById(R.id.radioButton4NY)) ;
+        small = (RadioButton) (findViewById(R.id.radioButton4NY));
+        picture = (ImageView) findViewById(R.id.imageView2NY);
         small.setChecked(true);
         currPizza = pizzaFactory.createBuildYourOwn();
         currPizza.setSize(Size.SMALL);
+
         price.setText(""+df.format(currPizza.price()));
         crust.setText(currPizza.getCrust().toString());
-        System.out.println(currPizza.getCrust());
-
-        picture = (ImageView) findViewById(R.id.imageView2NY);
     }
 
     /**
      * Initializes the Spinner
-     * NEED TO ADD UI FOR CRUST
+     *
      */
     private void initializeSpinner(){
         spinner = (Spinner) findViewById(R.id.spinner3NY);
@@ -119,87 +117,65 @@ public class NYStyleActivity extends AppCompatActivity {
 
     private void addTopping() {
         add = (Button) findViewById(R.id.button13NY);
-        toppingsAvailable.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
-                selected = (Topping) adapter.getItemAtPosition(position);
-            }
-        });
+        toppingsAvailable.setOnItemClickListener((adapter, v, position, id) -> selected = (Topping) adapter.getItemAtPosition(position));
 
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (selected == null) {
-                    CharSequence text = getResources().getString(R.string.noToppingsSelectedToAdd);
-                    int timeLimit = Toast.LENGTH_LONG;
-                    Toast successToast = Toast.makeText(NYStyleActivity.this, text, timeLimit);
-                    successToast.show();
-                } else if (selectedToppings.size() == 7) {
-                    CharSequence text = getResources().getString(R.string.maxToppingsReached);
-                    int timeLimit = Toast.LENGTH_LONG;
-                    Toast successToast = Toast.makeText(NYStyleActivity.this, text, timeLimit);
-                    successToast.show();
-                } else {
-                    availableToppings.remove(selected);
-                    toppingAvailableAdapter.notifyDataSetChanged();
-                    selectedToppings.add(selected);
-                    toppingSelectedAdapter.notifyDataSetChanged();
-                    currPizza.add(selected);
-                    price.setText(""+df.format(currPizza.price()));
-                    selected = null;
-                }
+        add.setOnClickListener(v -> {
+            if (selected == null) {
+                Toast toast = Toast.makeText(NYStyleActivity.this,
+                        getResources().getString(R.string.noToppingsSelectedToAdd), Toast.LENGTH_LONG);
+                toast.show();
+            } else if (selectedToppings.size() == 7) {
+                Toast toast = Toast.makeText(NYStyleActivity.this,
+                        getResources().getString(R.string.maxToppingsReached),  Toast.LENGTH_LONG);
+                toast.show();
+            } else {
+                availableToppings.remove(selected);
+                toppingAvailableAdapter.notifyDataSetChanged();
+                selectedToppings.add(selected);
+                toppingSelectedAdapter.notifyDataSetChanged();
+                currPizza.add(selected);
+                price.setText(""+df.format(currPizza.price()));
+                selected = null;
             }
         });
     }
 
     private void removeTopping() {
         remove = (Button) findViewById(R.id.button12NY);
-        toppingsSelected.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
-                selectedToRemove = (Topping) adapter.getItemAtPosition(position);
+        toppingsSelected.setOnItemClickListener((adapter, v, position, id) -> selectedToRemove = (Topping) adapter.getItemAtPosition(position));
+        remove.setOnClickListener(v -> {
+            if (selectedToRemove == null) {
+                Toast toast = Toast.makeText(NYStyleActivity.this,
+                        getResources().getString(R.string.noToppingsSelectedToRemove), Toast.LENGTH_LONG);
+                toast.show();
             }
-        });
-
-        remove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (selectedToRemove == null) {
-                    CharSequence text = getResources().getString(R.string.noToppingsSelectedToRemove);
-                    int timeLimit = Toast.LENGTH_LONG;
-                    Toast successToast = Toast.makeText(NYStyleActivity.this, text, timeLimit);
-                    successToast.show();
-                }
-                else {
-                    selectedToppings.remove(selectedToRemove);
-                    toppingSelectedAdapter.notifyDataSetChanged();
-                    availableToppings.add(selectedToRemove);
-                    toppingAvailableAdapter.notifyDataSetChanged();
-                    currPizza.remove(selectedToRemove);
-                    price.setText(""+df.format(currPizza.price()));
-                    selectedToRemove= null;
-                }
+            else {
+                selectedToppings.remove(selectedToRemove);
+                toppingSelectedAdapter.notifyDataSetChanged();
+                availableToppings.add(selectedToRemove);
+                toppingAvailableAdapter.notifyDataSetChanged();
+                currPizza.remove(selectedToRemove);
+                price.setText(""+df.format(currPizza.price()));
+                selectedToRemove= null;
             }
         });
     }
 
-    private void changeSize(){
+    private void sizeChangeListener(){
         sizes = (RadioGroup) findViewById(R.id.radioGroupNY);
-        sizes.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
-            public void onCheckedChanged(RadioGroup group, int checkedId)
+        sizes.setOnCheckedChangeListener((group, checkedId) -> {
+            RadioButton checkedRadioButton = (RadioButton) group.findViewById(checkedId);
+            boolean isChecked = checkedRadioButton.isChecked();
+            if (isChecked)
             {
-                RadioButton checkedRadioButton = (RadioButton) group.findViewById(checkedId);
-                boolean isChecked = checkedRadioButton.isChecked();
-                if (isChecked)
-                {
-                    currSize = Size.valueOf(checkedRadioButton.getText().toString().toUpperCase());
-                    currPizza.setSize(currSize);
-                    price.setText(""+df.format(currPizza.price()));
-                }
+                currSize = Size.valueOf(checkedRadioButton.getText().toString().toUpperCase());
+                currPizza.setSize(currSize);
+                price.setText(""+df.format(currPizza.price()));
             }
         });
     }
 
-    private void changeValues(){
+    private void typeChangeListener(){
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -238,48 +214,16 @@ public class NYStyleActivity extends AppCompatActivity {
 
     private void addToOrder(){
         addToOrder = (Button) findViewById(R.id.button14NY);
-        addToOrder.setOnClickListener( new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                currentOrder.add(currPizza);
-                currentOrder.addToStringArray(currPizza, "NY Style");
-                CharSequence text = getResources().getString(R.string.pizzaAdded);
-                int timeLimit = Toast.LENGTH_LONG;
-                Toast successToast = Toast.makeText(NYStyleActivity.this, text, timeLimit);
-                successToast.show();                // can make alert dialog instead later
-                initializeValues();
-                initializeListViews();
-                initializeSpinner();
-            }
+        addToOrder.setOnClickListener(v -> {
+            currentOrder.add(currPizza);
+            currentOrder.addToStringArray(currPizza, "NY Style");
+            Toast toast = Toast.makeText(NYStyleActivity.this,
+                    getResources().getString(R.string.pizzaAdded), Toast.LENGTH_LONG);
+            toast.show();
+            initializeValues();
+            initializeListViews();
+            initializeSpinner();
         });
-    }
-    /**
-     * Returns a textual representation of a numerical monetary amount.
-     *
-     * @param input value to be formatted
-     * @return String representation of input double in format $0.00.
-     */
-    private String amountString(double input) {
-        DecimalFormat twoDecimalPlaces = new DecimalFormat("$0.00");
-        return twoDecimalPlaces.format(input);
-    }
-
-    protected void onStart() {
-        super.onStart();
-        System.out.println("onStart");
-    }
-
-    //dummy onPause method
-    public void onPause() {
-        super.onPause();
-        System.out.println("onPause");
-    }
-
-    //dummy onResume method
-    public void onResume() {
-        super.onResume();
-        System.out.println("onResume");
     }
 
 }

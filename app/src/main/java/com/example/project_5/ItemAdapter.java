@@ -35,6 +35,10 @@ class RecyclingAdapter extends RecyclerView.Adapter<RecyclingAdapter.RecyclingHo
         this.items = items;
     }
 
+    public void resetSelectedPos(){
+        selected_position = -1;
+    }
+
     /**
      * This method will inflate the row layout for the items in the RecyclerView
      *
@@ -53,7 +57,12 @@ class RecyclingAdapter extends RecyclerView.Adapter<RecyclingAdapter.RecyclingHo
     }
 
     public Order getSelectedElem(){
-        return items.get(selected_position);
+        if (selected_position==-1){
+            return null;
+        }
+        else {
+            return items.get(selected_position);
+        }
     }
 
     /**
@@ -65,23 +74,19 @@ class RecyclingAdapter extends RecyclerView.Adapter<RecyclingAdapter.RecyclingHo
      */
     @Override
     public void onBindViewHolder(@NonNull RecyclingHolder holder, int position) {
-        //assign values for each row
         holder.pizzaString.setText(items.get(position).toString());
         Order item = items.get(position);
-        //holder.itemView.setBackgroundColor(selected_position == position ? Color.GREEN : Color.TRANSPARENT);
         if(position==selected_position)
         {
-            //System.out.println(position);
+            System.out.println("pos: " + position + "selected: " + selected_position);
             holder.pizzaString.setText("SELECTED: " + items.get(position).toString());
             holder.pizzaString.setTextColor(Color.RED);
-            //holder.cardView.setBackgroundColor(Color.RED);
         }
         else
         {
             holder.pizzaString.setText( items.get(position).toString());
             holder.pizzaString.setTextColor(Color.WHITE);
         }
-        //holder.pizzaImage.setImageResource(items.get(position).getImage());
     }
 
     /**

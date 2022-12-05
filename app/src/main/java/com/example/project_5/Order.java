@@ -253,16 +253,6 @@ public class Order implements Customizable {
         items.remove((Pizza) obj);
         return true;
     }
-
-    /**
-     * A list to be set into ListView of the pizzas.
-     *
-     * @return an observable list of the Pizzas.
-     */
-    //  public ObservableList<Pizza> getListPizzas() {
-    //    return FXCollections.observableList(items);
-    // }
-
     /**
      * Returns the array list that has the textual details of the orders.
      *
@@ -271,15 +261,6 @@ public class Order implements Customizable {
     public ArrayList<String> getPizzaToString() {
         return pizzaToString;
     }
-
-    /**
-     * Returns an observable list of the string representations of the orders.
-     *
-     * @return an observable list of the string representations of the orders.
-     */
-    // public ObservableList<String> getStringPizzas() {
-    //     return FXCollections.observableList(pizzaToString);
-    // }
 
     /**
      * Returns a textual representation of a numerical monetary amount.
@@ -291,24 +272,6 @@ public class Order implements Customizable {
         DecimalFormat twoDecimalPlaces = new DecimalFormat("$0.00");
         return twoDecimalPlaces.format(input);
     }
-
-    /**
-     * Returns a string that details all the information about a single order.
-     *
-     * @return String formatted with the pizza orders, subtotal, sales tax and total for each order.
-     */
-    public String storeOrders() {
-        String orderList = "OrderID: " + orderID + "\n";
-        for (String i : pizzaToString) {
-            orderList += i + "\n";
-        }
-        orderList += "Subtotal: " +
-                amountString(costBeforeTax) + ", Tax: " +
-                amountString(costBeforeTax * NJ_SALES_TAX) + ", Total: " +
-                amountString(getCostAfterTax()) + "\n";
-        return orderList;
-    }
-
     /**
      * Returns a textual representation of this Order.
      *

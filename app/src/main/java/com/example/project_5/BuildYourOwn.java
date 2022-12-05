@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Build Your Own Pizza Class that extends Pizza to create a specialized pizza
+ * Build Your Own Pizza Class that extends Pizza
  *
- * @author Srinidhi Ayalasomayajula, Palak Mehta
+ *
  */
 public class BuildYourOwn extends Pizza implements Customizable {
     private double price = 0.0;
@@ -25,8 +25,7 @@ public class BuildYourOwn extends Pizza implements Customizable {
     }
 
     /**
-     * evaluates the new price of the pizza based on the price
-     *
+     * returns price of the pizza depending on size
      * @return the price of the pizza based on the size the user inputted
      */
     @Override
@@ -50,12 +49,12 @@ public class BuildYourOwn extends Pizza implements Customizable {
      */
     @Override
     public boolean add(Object obj) {
-        List<Topping> toppingsBuildYourOwn = getToppings();
-        if (toppingsBuildYourOwn == null) {
-            toppingsBuildYourOwn = new ArrayList<Topping>();
+        List<Topping> toppings = getToppings();
+        if (toppings == null) {
+            toppings = new ArrayList<Topping>();
         }
-        toppingsBuildYourOwn.add((Topping) obj);
-        setToppings(toppingsBuildYourOwn);
+        toppings.add((Topping) obj);
+        setToppings(toppings);
         return true;
     }
 
@@ -65,12 +64,12 @@ public class BuildYourOwn extends Pizza implements Customizable {
      */
     @Override
     public boolean remove(Object obj) {
-        List<Topping> toppingsBuildYourOwn = getToppings();
-        if (toppingsBuildYourOwn == null) {
+        List<Topping> toppings = getToppings();
+        if (toppings == null) {
             return true;
         }
-        toppingsBuildYourOwn.remove((Topping) obj);
-        setToppings(toppingsBuildYourOwn);
+        toppings.remove((Topping) obj);
+        setToppings(toppings);
         return true;
     }
 

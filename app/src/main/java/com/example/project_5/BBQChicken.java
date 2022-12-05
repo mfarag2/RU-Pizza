@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * BBQ Chicken Class that extends Pizza to create a specialized pizza
+ * BBQ Chicken Class that extends Pizza
  *
- * @author Srinidhi Ayalasomayajula, Palak Mehta
  */
 public class BBQChicken extends Pizza {
     private double price = 0.0;
@@ -20,18 +19,17 @@ public class BBQChicken extends Pizza {
      * @param crust Crust for the BBQ Chicken pizza based on the style of the pizza
      */
     public BBQChicken(Crust crust) {
-        List<Topping> toppingsBBQChicken = new ArrayList<Topping>();
-        toppingsBBQChicken = new ArrayList<Topping>();
-        toppingsBBQChicken.add(Topping.BBQCHICKEN);
-        toppingsBBQChicken.add(Topping.GREENPEPPER);
-        toppingsBBQChicken.add(Topping.PROVOLONE);
-        toppingsBBQChicken.add(Topping.CHEDDAR);
-        setToppings(toppingsBBQChicken);
         setCrust(crust);
+        List<Topping> toppings = new ArrayList<Topping>();
+        toppings.add(Topping.BBQCHICKEN);
+        toppings.add(Topping.GREENPEPPER);
+        toppings.add(Topping.PROVOLONE);
+        toppings.add(Topping.CHEDDAR);
+        setToppings(toppings);
     }
 
     /**
-     * evaluates the new price of the pizza based on the price
+     * returns price of the pizza depending on size
      *
      * @return the price of the pizza based on the size the user inputted
      */

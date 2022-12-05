@@ -1,13 +1,12 @@
 package com.example.project_5;
 
 /**
- * NY Pizza Factory class is a Pizza factory that creates different pizza based on the style
+ * NY Pizza Factory creates different pizzas based on the desired style
  *
- * @author Srinidhi Ayalasomayajula, Palak Mehta
  */
 public class NYStylePizzaFactory implements PizzaFactory {
     /**
-     * Create a deluxe style pizza and set the crust to the arbitrary type
+     * Create a deluxe style pizza and sets the crust
      *
      * @return the pizza that was created
      */
@@ -17,7 +16,7 @@ public class NYStylePizzaFactory implements PizzaFactory {
     }
 
     /**
-     * Create a Meatzza style pizza and set the crust to the arbitrary type
+     * Create a Meatzza style pizza and sets the crust
      *
      * @return the pizza that was created
      */
@@ -27,7 +26,7 @@ public class NYStylePizzaFactory implements PizzaFactory {
     }
 
     /**
-     * Create a BBQChicken style pizza and set the crust to the arbitrary type
+     * Create a BBQChicken style pizza and sets the crust
      *
      * @return the pizza that was created
      */
@@ -37,7 +36,7 @@ public class NYStylePizzaFactory implements PizzaFactory {
     }
 
     /**
-     * Create a Build Your Own style pizza and set the crust to the arbitrary type
+     * Create a Build Your Own style pizza and sets the crust
      *
      * @return the pizza that was created
      */

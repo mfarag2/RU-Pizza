@@ -22,13 +22,13 @@ public class CurrentOrderActivity extends AppCompatActivity {
     private Order currentOrder;
     private StoreOrder currentStoreOrder;
     private ListView basketDisplayList;
-    private EditText subtotalAmount;
-    private EditText taxAmount;
-    private EditText totalAmount;
+    private EditText subtotal;
+    private EditText tax;
+    private EditText total;
     private TextView ordernum;
-    private AlertDialog.Builder emptyBasketRemoveDialogBuilder;
+    private AlertDialog.Builder emptyOrderRemoveDialogBuilder;
     private AlertDialog.Builder noSelectionDialogBuilder;
-    private AlertDialog.Builder emptyBasketSubmitDialogBuilder;
+    private AlertDialog.Builder emptyOrderDialogBuilder;
     private ArrayList<String> toBeRemoved;
 
 
@@ -49,13 +49,13 @@ public class CurrentOrderActivity extends AppCompatActivity {
 
     private void updateValues(){
         if(currentOrder.getItems().isEmpty()){
-            subtotalAmount.setText(getResources().getString(R.string.dollarPlaceholder));
-            taxAmount.setText(getResources().getString(R.string.dollarPlaceholder));
-            totalAmount.setText(getResources().getString(R.string.dollarPlaceholder));
+            subtotal.setText(getResources().getString(R.string.dollarPlaceholder));
+            tax.setText(getResources().getString(R.string.dollarPlaceholder));
+            total.setText(getResources().getString(R.string.dollarPlaceholder));
         }
-        subtotalAmount.setText(formatDouble(currentOrder.getCostBeforeTax()));
-        taxAmount.setText(formatDouble(currentOrder.getSalesTax()));
-        totalAmount.setText(formatDouble(currentOrder.getCostAfterTax()));
+        subtotal.setText(formatDouble(currentOrder.getCostBeforeTax()));
+        tax.setText(formatDouble(currentOrder.getSalesTax()));
+        total.setText(formatDouble(currentOrder.getCostAfterTax()));
     }
 
     /**
@@ -82,25 +82,6 @@ public class CurrentOrderActivity extends AppCompatActivity {
     }
 
     /**
-     * Handles the control logic for when the user presses the back
-     * button on the Store Activity itself.
-     * @param itemChosen The android.view.MenuItem that was selected
-     * @return true if the user pressed the back button.
-     * Otherwise, return false for normal menu processing or return
-     * true to consume the MenuItem.
-     */
-  /*  @Override
-    public boolean onOptionsItemSelected(android.view.MenuItem itemChosen){
-        if (itemChosen.getItemId() == android.R.id.home) {
-            MainActivity.currentOrder = this.currentOrder;
-            MainActivity.currentStoreOrder = this.currentStoreOrder;
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(itemChosen);
-    }*/
-
-    /**
      * Creates an adapter for the list view of menu items.
      * @return ArrayAdapter for list of MenuItem objects.
      */
@@ -123,9 +104,9 @@ public class CurrentOrderActivity extends AppCompatActivity {
      * current order.
      */
     private void initializeValues(){
-        subtotalAmount = (EditText)(findViewById(R.id.subtotalAmount));
-        taxAmount = (EditText)(findViewById(R.id.taxAmount));
-        totalAmount = (EditText)(findViewById(R.id.totalAmount));
+        subtotal = (EditText)(findViewById(R.id.subtotalAmount));
+        tax = (EditText)(findViewById(R.id.taxAmount));
+        total = (EditText)(findViewById(R.id.totalAmount));
 
         toBeRemoved = new ArrayList<>();
         this.currentOrder = MainActivity.currentOrder;
@@ -143,7 +124,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
         basketDisplayList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         basketDisplayList.setOnItemClickListener(selectItemsListener());
 
-        ordernum= (TextView)(findViewById(R.id.textView12));
+        ordernum = (TextView)(findViewById(R.id.textView12));
         ordernum.setText(Integer.toString(currentOrder.getOrderId()));
 
 
@@ -155,11 +136,11 @@ public class CurrentOrderActivity extends AppCompatActivity {
      * items from the basket.
      */
     public void setUpRemoveDialogs(){
-        emptyBasketRemoveDialogBuilder = new AlertDialog.Builder(this);
-        emptyBasketRemoveDialogBuilder.setTitle(R.string.RemoveError);
-        emptyBasketRemoveDialogBuilder.setMessage(R.string.removeEmptyBasket);
-        emptyBasketRemoveDialogBuilder.setIcon(R.drawable.error);
-        emptyBasketRemoveDialogBuilder.setPositiveButton(R.string.OKButton, null);
+        emptyOrderRemoveDialogBuilder = new AlertDialog.Builder(this);
+        emptyOrderRemoveDialogBuilder.setTitle(R.string.RemoveError);
+        emptyOrderRemoveDialogBuilder.setMessage(R.string.removeEmptyBasket);
+        emptyOrderRemoveDialogBuilder.setIcon(R.drawable.error);
+        emptyOrderRemoveDialogBuilder.setPositiveButton(R.string.OKButton, null);
 
         noSelectionDialogBuilder = new AlertDialog.Builder(this);
         noSelectionDialogBuilder.setTitle(R.string.RemoveError);
@@ -173,146 +154,110 @@ public class CurrentOrderActivity extends AppCompatActivity {
      * an order.
      */
     public void setUpSubmitDialogs(){
-        emptyBasketSubmitDialogBuilder = new AlertDialog.Builder(this);
-        emptyBasketSubmitDialogBuilder.setTitle(R.string.submitError);
-        emptyBasketSubmitDialogBuilder.setMessage(R.string.submitEmptyBasket);
-        emptyBasketSubmitDialogBuilder.setIcon(R.drawable.error);
-        emptyBasketSubmitDialogBuilder.setPositiveButton(R.string.OKButton, null);
+        emptyOrderDialogBuilder = new AlertDialog.Builder(this);
+        emptyOrderDialogBuilder.setTitle(R.string.submitError);
+        emptyOrderDialogBuilder.setMessage(R.string.submitEmptyBasket);
+        emptyOrderDialogBuilder.setIcon(R.drawable.error);
+        emptyOrderDialogBuilder.setPositiveButton(R.string.OKButton, null);
     }
 
     /**
      * Creates a listener for the list of menu items which adds and
-     * removes items from the toBeRemoved list based on their
-     * selection status.
-     * @return an AdapterView.OnItemClickListener for the basket.
+     * removes items from the view based on selected
+     * @return an AdapterView.OnItemClickListener
      */
     private AdapterView.OnItemClickListener selectItemsListener(){
-        return new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String itemChosen = (String) adapterView.getItemAtPosition(i);
-                if(basketDisplayList.isItemChecked(i)){
-                    toBeRemoved.add(itemChosen);
-                }
-                else{
-                    toBeRemoved.remove(itemChosen);
-                }
+        return (adapterView, view, i, l) -> {
+            String itemChosen = (String) adapterView.getItemAtPosition(i);
+            if(basketDisplayList.isItemChecked(i)){
+                toBeRemoved.add(itemChosen);
             }
-
+            else{
+                toBeRemoved.remove(itemChosen);
+            }
         };
-
     }
 
     /**
-     * Creates a listener for the Remove From Basket button.
-     * @return a View.OnClickListener for the remove button.
+     * Creates a listener for the remove pizza button.
+     * @return a View.OnClickListener
      */
     private View.OnClickListener removeListener(){
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (currentOrder.getItems().isEmpty()) {
-                    AlertDialog alert = emptyBasketRemoveDialogBuilder.create();
-                    alert.show();
-                    return;
-                }
-
-                if(toBeRemoved.isEmpty()){
-                    AlertDialog alert = noSelectionDialogBuilder.create();
-                    alert.show();
-                    return;
-                }
-                for (int i=0; i<toBeRemoved.size(); i++){
-                    int index= currentOrder.getPizzaToString().indexOf(toBeRemoved.get(i));
-                    Pizza toRemove= currentOrder.getItems().get(index);
-                    currentOrder.remove(toRemove);
-                    currentOrder.getPizzaToString().remove(index);
-                }
-
-                System.out.println(currentOrder.getPizzaToString());
-                System.out.println(currentOrder.getItems());
-
-                basketDisplayList.setAdapter(listViewAdapter());
-                Context currentContext = getApplicationContext();
-                CharSequence text = getResources().getString(R.string.removeItemMessage);
-                int timeLimit = Toast.LENGTH_SHORT;
-                Toast successToast = Toast.makeText(currentContext, text, timeLimit);
-                successToast.show();
-                toBeRemoved.clear();
-                updateValues();
+        return view -> {
+            if (currentOrder.getItems().isEmpty()) {
+                AlertDialog alert = emptyOrderRemoveDialogBuilder.create();
+                alert.show();
+                return;
             }
+            if(toBeRemoved.isEmpty()){
+                AlertDialog alert = noSelectionDialogBuilder.create();
+                alert.show();
+                return;
+            }
+            for (int i=0; i<toBeRemoved.size(); i++){
+                int index= currentOrder.getPizzaToString().indexOf(toBeRemoved.get(i));
+                Pizza toRemove= currentOrder.getItems().get(index);
+                currentOrder.remove(toRemove);
+                currentOrder.getPizzaToString().remove(index);
+            }
+            basketDisplayList.setAdapter(listViewAdapter());
+            Toast successToast = Toast.makeText(getApplicationContext(),
+                    getResources().getString(R.string.removeItemMessage), Toast.LENGTH_SHORT);
+            successToast.show();
+            toBeRemoved.clear();
+            updateValues();
         };
     }
 
     /**
      * Creates a listener for the Submit Order button.
-     * @return a View.OnClickListener for the submit button.
+     * @return a View.OnClickListener
      */
     private View.OnClickListener submitListener(){
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(currentOrder.getItems().isEmpty()){
-                    AlertDialog alert = emptyBasketSubmitDialogBuilder.create();
-                    alert.show();
-                    return;
-                }
-                currentStoreOrder.add(currentOrder);
-                basketDisplayList.setAdapter(null);
-                MainActivity.counter++;
-                ordernum.setText(Integer.toString(MainActivity.counter));
-                currentOrder = new Order();
-                MainActivity.currentOrder=currentOrder;
-                MainActivity.storeOrder=currentStoreOrder;
-                currentOrder.setOrderID(MainActivity.counter);
-                Context currentContext = getApplicationContext();
-                CharSequence text = getResources().getString(R.string.submitOrderMessage);
-                int timeLimit = Toast.LENGTH_SHORT;
-                Toast successToast = Toast.makeText(currentContext, text, timeLimit);
-                successToast.show();
-
-                System.out.println(currentOrder.getItems());
-                System.out.println(currentOrder.getPizzaToString());
-
-                updateValues();
-
+        return view -> {
+            if(currentOrder.getItems().isEmpty()){
+                AlertDialog alert = emptyOrderDialogBuilder.create();
+                alert.show();
+                return;
             }
+            currentStoreOrder.add(currentOrder);
+            basketDisplayList.setAdapter(null);
+            MainActivity.counter++;
+            ordernum.setText(Integer.toString(MainActivity.counter));
+            currentOrder = new Order();
+            MainActivity.currentOrder=currentOrder;
+            MainActivity.storeOrder=currentStoreOrder;
+            currentOrder.setOrderID(MainActivity.counter);
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    getResources().getString(R.string.submitOrderMessage), Toast.LENGTH_SHORT);
+            toast.show();
+            updateValues();
         };
     }
 
     /**
-     * Creates a listener for the Remove From Basket button.
-     * @return a View.OnClickListener for the remove button.
+     * Creates a listener for clear order button.
+     * @return a View.OnClickListener
      */
     private View.OnClickListener clearListener(){
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(currentOrder.getItems().isEmpty()){
-                    AlertDialog alert = emptyBasketRemoveDialogBuilder.create();
-                    alert.show();
-                    return;
-                }
-                currentOrder.getPizzaToString().clear();
-                currentOrder.getItems().clear();
-                currentOrder.setCostBeforeTax(0);
-                MainActivity.storeOrder=currentStoreOrder;
-                MainActivity.currentOrder=currentOrder;
-                MainActivity.counter--;
-                basketDisplayList.setAdapter(null);
-                ordernum.setText(Integer.toString(currentOrder.getOrderId()));
-                Context currentContext = getApplicationContext();
-                CharSequence text = getResources().getString(R.string.clearItems);
-                int timeLimit = Toast.LENGTH_SHORT;
-                Toast successToast = Toast.makeText(currentContext, text, timeLimit);
-                successToast.show();
-
-//                System.out.println(currentOrder.getItems());
-//                System.out.println(currentOrder.getPizzaToString());
-
-                updateValues();
+        return view -> {
+            if(currentOrder.getItems().isEmpty()){
+                AlertDialog alert = emptyOrderRemoveDialogBuilder.create();
+                alert.show();
+                return;
             }
+            currentOrder.getPizzaToString().clear();
+            currentOrder.getItems().clear();
+            currentOrder.setCostBeforeTax(0);
+            MainActivity.storeOrder=currentStoreOrder;
+            MainActivity.currentOrder=currentOrder;
+            MainActivity.counter--;
+            basketDisplayList.setAdapter(null);
+            ordernum.setText(Integer.toString(currentOrder.getOrderId()));
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    getResources().getString(R.string.clearItems), Toast.LENGTH_SHORT);
+            toast.show();
+            updateValues();
         };
     }
 }

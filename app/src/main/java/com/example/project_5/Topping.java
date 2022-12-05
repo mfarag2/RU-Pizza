@@ -2,8 +2,7 @@ package com.example.project_5;
 
 
 /**
- * Houses constants Topping enum objects for the pizzas
- * @author Srinidhi Ayalasomayajula, Palak Mehta
+ * Defines constant Topping enum objects
  */
 public enum Topping {
     SAUSAGE,
@@ -12,27 +11,12 @@ public enum Topping {
     CHEDDAR,
     BEEF,
     HAM,
+    MUSHROOM,
     PEPPERONI,
     GREENPEPPER,
     ONION,
-    MUSHROOM,
-    PINEAPPLE,
     BLACKOLIVES,
+    PINEAPPLE,
     SPINACH;
-
-    /**
-     * Matches the string topping to the enum topping values
-     * @param name String topping to be converted to an enum topping
-     * @return enum topping
-     */
-    public static Topping fromString(String name) {
-        Topping returnVal = null;
-        for(Topping topping: Topping.values()) {
-            if(name.equalsIgnoreCase(topping.name())) {
-                returnVal = topping;
-            }
-        }
-        return returnVal;
-    }
 
 }

@@ -1,25 +1,23 @@
 package com.example.project_5;
 
 /**
- * Customizable interface that identifies different methods that will need to be implemented in subclasses
- *
- * @param <E> Generic type to accept any object
- * @author Srinidhi Ayalasomayajula, Palak Mehta
+ * Customizable interface that identifies different methods
+ * @param <E> Generic type
  */
 public interface Customizable<E> {
     /**
-     * Add the object to the list, implemented later
+     * Add the object to the list
      *
      * @param obj object to be added
-     * @return true if it is added correctly, false if it is not added
+     * @return true if it is added correctly, false otherwise
      */
     boolean add(Object obj);
 
     /**
-     * Remove the object from the list, implemented later
+     * Remove the object from the list
      *
      * @param obj object to be removed
-     * @return true if it is removed correctly, false if it is not removed
+     * @return true if it is removed correctly, false otherwise
      */
     boolean remove(Object obj);
 }
