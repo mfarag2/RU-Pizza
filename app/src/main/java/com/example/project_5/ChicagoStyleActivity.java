@@ -57,26 +57,21 @@ public class ChicagoStyleActivity extends AppCompatActivity {
     private static Topping selectedToRemove;
     private static Size currSize = Size.SMALL;
 
-    private AlertDialog.Builder emptyStoreCancelDialogBuilder;
-    private AlertDialog.Builder noSelectionDialogBuilder;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chicago_style);
-        initializeSpinner();
-        initializeListViews();
+        initializeComponents();
         initializeValues();
-        addTopping();
-        removeTopping();
         sizeChangeListener();
         typeChangeListener();
+        addTopping();
+        removeTopping();
         addToOrder();
     }
 
     private void initializeValues(){
         this.currentOrder = MainActivity.currentOrder;
-
         price = (TextView) (findViewById(R.id.price));
         crust = (TextView) (findViewById(R.id.crust));
         small = (RadioButton) (findViewById(R.id.radioButton4));
@@ -93,14 +88,12 @@ public class ChicagoStyleActivity extends AppCompatActivity {
      * Initializes the Spinner
      *
      */
-    private void initializeSpinner(){
+    private void initializeComponents(){
         spinner = (Spinner) findViewById(R.id.spinner);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, pizzaTypes);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-    }
 
-    private void initializeListViews(){
         toppingsAvailable = (ListView) findViewById(R.id.listView2);
         toppingsAvailable.setSelector(new ColorDrawable(Color.GRAY));
         toppingsAvailable.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
@@ -227,10 +220,7 @@ public class ChicagoStyleActivity extends AppCompatActivity {
                     getResources().getString(R.string.pizzaAdded), Toast.LENGTH_LONG);
             successToast.show();
             initializeValues();
-            initializeListViews();
-            initializeSpinner();
+            initializeComponents();
         });
     }
-
-
 }

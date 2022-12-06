@@ -78,12 +78,13 @@ class RecyclingAdapter extends RecyclerView.Adapter<RecyclingAdapter.RecyclingHo
         Order item = items.get(position);
         if(position==selected_position)
         {
-            System.out.println("pos: " + position + "selected: " + selected_position);
+            holder.parentLayout.setBackgroundColor(Color.GRAY);
             holder.pizzaString.setText("SELECTED: " + items.get(position).toString());
-            holder.pizzaString.setTextColor(Color.RED);
+            holder.pizzaString.setTextColor(Color.BLACK);
         }
         else
         {
+            holder.parentLayout.setBackgroundColor(Color.BLACK);
             holder.pizzaString.setText( items.get(position).toString());
             holder.pizzaString.setTextColor(Color.WHITE);
         }
@@ -104,8 +105,6 @@ class RecyclingAdapter extends RecyclerView.Adapter<RecyclingAdapter.RecyclingHo
      */
     public class RecyclingHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView pizzaString;
-        private ImageView pizzaImage;
-        private CardView cardView;
         private ConstraintLayout parentLayout;//this is the row layout
 
         public RecyclingHolder(@NonNull View itemView) {
@@ -113,8 +112,7 @@ class RecyclingAdapter extends RecyclerView.Adapter<RecyclingAdapter.RecyclingHo
 
             //pizzaImage = itemView.findViewById(R.id.pizzaImage);
             pizzaString = itemView.findViewById(R.id.pizzaString);
-            parentLayout = itemView.findViewById(R.id.rowLayout);
-            cardView = itemView.findViewById(R.id.cardView);
+            parentLayout = itemView.findViewById(R.id.constraintLayout);
             itemView.setOnClickListener(this);
 
         }

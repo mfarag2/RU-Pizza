@@ -62,13 +62,12 @@ public class NYStyleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ny_style);
-        initializeSpinner();
-        initializeListViews();
+        initializeComponents();
         initializeValues();
-        addTopping();
-        removeTopping();
         sizeChangeListener();
         typeChangeListener();
+        addTopping();
+        removeTopping();
         addToOrder();
     }
 
@@ -92,33 +91,30 @@ public class NYStyleActivity extends AppCompatActivity {
      * Initializes the Spinner
      *
      */
-    private void initializeSpinner(){
+    private void initializeComponents(){
         spinner = (Spinner) findViewById(R.id.spinner3NY);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, pizzaTypes);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-    }
 
-    private void initializeListViews(){
         toppingsAvailable = (ListView) findViewById(R.id.listView2NY);
         toppingsAvailable.setSelector(new ColorDrawable(Color.GRAY));
         toppingsAvailable.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
         availableToppings  = new ArrayList<>(Arrays.asList(toppings));
-        toppingAvailableAdapter = new ArrayAdapter<Topping>(this, android.R.layout.simple_list_item_1,  availableToppings);
+        toppingAvailableAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,  availableToppings);
         toppingsAvailable.setAdapter(toppingAvailableAdapter);
 
         toppingsSelected = (ListView) findViewById(R.id.listViewNY);
         toppingsSelected.setSelector(new ColorDrawable(Color.GRAY));
         toppingsSelected.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
         selectedToppings = new ArrayList<>();
-        toppingSelectedAdapter = new ArrayAdapter<Topping>(this, android.R.layout.simple_list_item_1,  selectedToppings);
+        toppingSelectedAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,  selectedToppings);
         toppingsSelected.setAdapter(toppingSelectedAdapter);
     }
 
     private void addTopping() {
         add = (Button) findViewById(R.id.button13NY);
         toppingsAvailable.setOnItemClickListener((adapter, v, position, id) -> selected = (Topping) adapter.getItemAtPosition(position));
-
         add.setOnClickListener(v -> {
             if (selected == null) {
                 Toast toast = Toast.makeText(NYStyleActivity.this,
@@ -221,9 +217,7 @@ public class NYStyleActivity extends AppCompatActivity {
                     getResources().getString(R.string.pizzaAdded), Toast.LENGTH_LONG);
             toast.show();
             initializeValues();
-            initializeListViews();
-            initializeSpinner();
+            initializeComponents();
         });
     }
-
 }

@@ -46,7 +46,7 @@
         app:layout_constraintEnd_toStartOf="@+id/storeOrderButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chicagoButton"
-        app:srcCompat="@drawable/currentorderimage" />
+        app:srcCompat="@drawable/currentorder" />
 
     <ImageButton
         android:id="@+id/storeOrderButton"
