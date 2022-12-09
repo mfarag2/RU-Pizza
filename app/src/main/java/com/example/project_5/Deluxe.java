@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Deluxe Class that extends Pizza
- *
+ * @author Mary Farag
  */
 public class Deluxe extends Pizza {
     private double price = 0.0;

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Meatzza Class that extends Pizza to create a specialized pizza
  *
- *
+ * @author Mary Farag
  */
 public class Meatzza extends Pizza {
     private double price = 0.0;

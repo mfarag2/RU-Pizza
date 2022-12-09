@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * This class defines the type StoreOrder representing all the store's orders
  *  Includes methods to add/remove orders, as well as getters/setters to edit the store orders
- *
+ * @author Mary Farag
  */
 public class StoreOrder implements Customizable {
 

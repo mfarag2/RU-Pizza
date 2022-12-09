@@ -2,7 +2,7 @@ package com.example.project_5;
 
 /**
  * Chicago Pizza Factory creates different pizzas based on the desired style
- *
+ * @author Mary Farag
  */
 public class ChicagoStylePizzaFactory implements PizzaFactory {
     /**

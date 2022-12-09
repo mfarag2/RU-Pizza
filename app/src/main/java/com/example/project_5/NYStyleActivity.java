@@ -23,6 +23,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This class controls the data used in the NY Style activity and the UI functions of the activity
+ * @author Mary Farag
+ */
+
 public class NYStyleActivity extends AppCompatActivity {
 
     private StoreOrder currentStoreOrder;
@@ -58,6 +63,11 @@ public class NYStyleActivity extends AppCompatActivity {
     private static Topping selectedToRemove;
     private static Size currSize = Size.SMALL;
 
+    /**
+     * Executes when the Activity is created.
+     *
+     * @param savedInstanceState previously held data about this Activity.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +81,9 @@ public class NYStyleActivity extends AppCompatActivity {
         addToOrder();
     }
 
+    /**
+     * Initializes the various instance variables to their respective values.
+     */
     private void initializeValues(){
         this.currentOrder = MainActivity.currentOrder;
         this.currentStoreOrder = MainActivity.storeOrder;
@@ -112,6 +125,10 @@ public class NYStyleActivity extends AppCompatActivity {
         toppingsSelected.setAdapter(toppingSelectedAdapter);
     }
 
+    /**
+     * This method is used to add a topping from the toppingsAvailable list view to the toppingsSelected list view,
+     * only allowing a maximum of 7 toppings to be added
+     */
     private void addTopping() {
         add = (Button) findViewById(R.id.button13NY);
         toppingsAvailable.setOnItemClickListener((adapter, v, position, id) -> selected = (Topping) adapter.getItemAtPosition(position));
@@ -136,6 +153,9 @@ public class NYStyleActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method is used to remove a topping from the toppingsSelected list view and add it back to the toppingsAvailable list view
+     */
     private void removeTopping() {
         remove = (Button) findViewById(R.id.button12NY);
         toppingsSelected.setOnItemClickListener((adapter, v, position, id) -> selectedToRemove = (Topping) adapter.getItemAtPosition(position));
@@ -157,6 +177,10 @@ public class NYStyleActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Establishes a listener for when the pizza size is selected. The price displayed is changed
+     * accordingly
+     */
     private void sizeChangeListener(){
         sizes = (RadioGroup) findViewById(R.id.radioGroupNY);
         sizes.setOnCheckedChangeListener((group, checkedId) -> {
@@ -171,6 +195,10 @@ public class NYStyleActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Establishes a listener for when the pizza type is selected. The image displayed, the list
+     * views, the add and remove toppings buttons, price, and the crust are changed accordingly
+     */
     private void typeChangeListener(){
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -208,6 +236,9 @@ public class NYStyleActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method adds the current pizza to the current order
+     */
     private void addToOrder(){
         addToOrder = (Button) findViewById(R.id.button14NY);
         addToOrder.setOnClickListener(v -> {

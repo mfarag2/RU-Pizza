@@ -12,6 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+/**
+ * This class controls the data used in the Store Order activity and the UI functions of the activity
+ * @author Mary Farag
+ */
+
 public class StoreOrderActivity extends AppCompatActivity {
     private StoreOrder currentStoreOrder;
     private ArrayList<Order> cancelingThisOrder;
@@ -88,7 +93,7 @@ public class StoreOrderActivity extends AppCompatActivity {
     }
 
     /**
-     * Display respective errors if an order is cancelled in correctly.
+     * Display respective errors if an order is cancelled incorrectly.
      */
     public void setUpCancelDialogs() {
         emptyStoreCancelDialogBuilder = new AlertDialog.Builder(this);
@@ -136,6 +141,13 @@ public class StoreOrderActivity extends AppCompatActivity {
         };
     }
 
+    /**
+     * Establishes a listener for when the Cancel All Order button is clicked. First
+     * checks if the total orders is not empty, and then
+     * removed all orders.
+     *
+     * @return a View.OnClickListener for the cancel all button.
+     */
     private View.OnClickListener cancelListenerAll() {
         return view -> {
             if (currentStoreOrder.getOrders().isEmpty()) {

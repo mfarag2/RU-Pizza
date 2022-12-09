@@ -4,13 +4,14 @@ import java.io.Serializable;
 
 /**
  * This class defines the structure of an item displayed in the RecyclerView
+ * @author Mary Farag
  */
 public class Item implements Serializable {
     private String pizzaString;
 
     /**
      * Parameterized constructor.
-     * @param pizzaString
+     * @param pizzaString the String representation of the Pizza
      */
     public Item(String pizzaString) {
         this.pizzaString = pizzaString;

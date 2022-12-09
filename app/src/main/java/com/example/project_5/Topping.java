@@ -3,6 +3,7 @@ package com.example.project_5;
 
 /**
  * Defines constant Topping enum objects
+ * @author Mary Farag
  */
 public enum Topping {
     SAUSAGE,

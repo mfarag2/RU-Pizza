@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * BBQ Chicken Class that extends Pizza
- *
+ * @author Mary Farag
  */
 public class BBQChicken extends Pizza {
     private double price = 0.0;

@@ -7,6 +7,11 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * This class holds the global data for the pizza orders and defined the the UI functionality of
+ * the main activity
+ * @author Mary Farag
+ */
 public class MainActivity extends AppCompatActivity {
 
     ImageButton chicagoButton;
@@ -17,6 +22,11 @@ public class MainActivity extends AppCompatActivity {
     public static int counter = 0;
     public static StoreOrder storeOrder = new StoreOrder();
 
+    /**
+     * Executes when the Activity is created.
+     *
+     * @param savedInstanceState previously held data about this Activity.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

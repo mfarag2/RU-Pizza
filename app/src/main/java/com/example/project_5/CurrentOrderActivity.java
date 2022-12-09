@@ -18,6 +18,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+/**
+ * This class controls the data used in the Current Order activity and the UI functions of the activity
+ * @author Mary Farag
+ */
 public class CurrentOrderActivity extends AppCompatActivity {
     private Order currentOrder;
     private StoreOrder currentStoreOrder;
@@ -46,7 +50,10 @@ public class CurrentOrderActivity extends AppCompatActivity {
         updateValues();
     }
 
-
+    /**
+     * This method updates the values of the text fields according to the current pizzas
+     * (or lack thereof) in the current order
+     */
     private void updateValues(){
         if(currentOrder.getItems().isEmpty()){
             subtotal.setText(getResources().getString(R.string.dollarPlaceholder));

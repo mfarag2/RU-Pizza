@@ -3,6 +3,7 @@ package com.example.project_5;
 /**
  * Customizable interface that identifies different methods
  * @param <E> Generic type
+ * @author Mary Farag
  */
 public interface Customizable<E> {
     /**

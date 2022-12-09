@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * of pizzas from a store. It keeps tracks of the pizzas placed as well
  * as their total amounts before tax and after tax.
  *
- * @author Srinidhi Ayalasomayajula, Palak Mehta
+ * @author Mary Farag
  */
 public class Order implements Customizable {
 
@@ -162,6 +162,11 @@ public class Order implements Customizable {
         return true;
     }
 
+    /**
+     * This method returns the toppings that is on a pizza
+     * @param obj Object representing the Pizza with toppings
+     * @return String representation of the list of toppings on the pizza
+     */
     public String getToppings(Object obj){
         String s = "";
         ArrayList<Topping> toppings = null;

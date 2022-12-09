@@ -23,18 +23,26 @@ import java.util.ArrayList;
  * ItemAdapter and an inner class ItemsHolder (a static class)
  * The ItemsHolder class must extend RecyclerView.ViewHolder. In the constructor of this class,
  * you do something similar to the onCreate() method in an Activity.
- * @author Lily Chang
+ * @author Mary Farag
  */
 class RecyclingAdapter extends RecyclerView.Adapter<RecyclingAdapter.RecyclingHolder> {
    // private Context context; //need the context to inflate the layout
     private ArrayList<Order> items; //need the data binding to each row of RecyclerView
     private static int selected_position = -1;
 
+    /**
+     * Executes when the Recycler Adapter is created and initializes the items instance variable
+     * to their respective values.
+     * @param items
+     */
     public RecyclingAdapter( ArrayList<Order> items) {
        // this.context = context;
         this.items = items;
     }
 
+    /**
+     * This method is used to reset the position of the items in the recycler view
+     */
     public void resetSelectedPos(){
         selected_position = -1;
     }
@@ -42,9 +50,9 @@ class RecyclingAdapter extends RecyclerView.Adapter<RecyclingAdapter.RecyclingHo
     /**
      * This method will inflate the row layout for the items in the RecyclerView
      *
-     * @param parent
-     * @param viewType
-     * @return
+     * @param parent the RecyclerView that is parent to the ViewHolder
+     * @param viewType the type of view of the parent ViewGroup
+     * @return the RecyclingHolder for the inflated recycler view
      */
     @NonNull
     @Override
@@ -56,6 +64,10 @@ class RecyclingAdapter extends RecyclerView.Adapter<RecyclingAdapter.RecyclingHo
         return new RecyclingHolder(view);
     }
 
+    /**
+     * This method returns the position of the selected item in the list of items
+     * @return the index of the selected item in the list of items
+     */
     public Order getSelectedElem(){
         if (selected_position==-1){
             return null;
@@ -101,12 +113,17 @@ class RecyclingAdapter extends RecyclerView.Adapter<RecyclingAdapter.RecyclingHo
     }
 
     /**
-     * Get the views from the row layout file, similar to the onCreate() method.
+     * Inner class to get the views from the row layout file, similar to the onCreate() method.
      */
     public class RecyclingHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView pizzaString;
         private ConstraintLayout parentLayout;//this is the row layout
 
+        /**
+         * constructor method for the holder and initializes the various instance variables to their
+         * respective values and creates a listener to check if one of the items in the view is clicked
+         * @param itemView the view in the activity
+         */
         public RecyclingHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -117,6 +134,10 @@ class RecyclingAdapter extends RecyclerView.Adapter<RecyclingAdapter.RecyclingHo
 
         }
 
+        /**
+         * this method updates the visible items in the holder
+         * @param view the view holding the items to be updated
+         */
         @Override
         public void onClick(View view) {
             if (getAdapterPosition() == RecyclerView.NO_POSITION) return;

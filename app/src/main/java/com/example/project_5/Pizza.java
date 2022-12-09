@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Pizza is an abstract class that implements the Customizable
  * interface along with the abstract price method and getters/setters for instance variables
- *
+ * @author Mary Farag
  */
 public abstract class Pizza implements Customizable {
     private List<Topping> toppings;
